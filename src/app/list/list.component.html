@@ -1,0 +1,66 @@
+<div class="scroll-content"></div>
+<div class="board" #board>
+  <div *ngFor="let listitem of lists.getLists()" class="list-wrapper">
+    <div class="list">
+      <div class="list-title">
+        <input class="list-title-input" name="title" [(ngModel)]="listitem.title" blurOnEnter/>
+        <div class="btn-group list-actions" dropdown>
+          <button type="button" dropdownToggle class="dropdown-toggle-split dropdown-more-vert">
+            <img src="assets/images/morevert.svg" class="more-vert">
+            <span class="sr-only">Split button!</span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li role="menuitem">
+              <a class="dropdown-item" href="javascript:void(0)" (click)="askDelete(listitem)">
+                Delete
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="cards" [sortablejs]="listitem.getTasks()" [sortablejsOptions]="sortOptions">
+        <div *ngFor="let item of listitem.getTasks()" class="card" (click)="openTask(listitem, item)"
+             [ngClass]="{
+               'card-warn': (item.getTime() > getDate().getTime() && item.getTime() - getDate().getTime() < warnRange),
+               'card-expired': (item.getTime() < getDate().getTime())}">
+          <div class="card-title">{{item.title}}</div>
+          <div>{{item.description | truncstr:70 }}</div>
+        </div>
+      </div>
+      <div *ngIf="!listitem.getTasks().length" class="card-placeholder">
+      </div>
+      <div (click)="createTask(listitem)" class="card-new">
+        NEW TASK
+      </div>
+    </div>
+  </div>
+  <div class="list-wrapper">
+    <div class="list-new" (click)="createList()" >
+      <div class="list-new-wrapper">
+        <div><img src="assets/images/add.svg" class="add"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-task *ngIf="isTaskView" [task]="task" [list]="list" [config]="{ show: true }" (onHidden)="onHidden()" bsModal class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></app-task>
+<div bsModal #confirmDeleteList="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" *ngIf="deletingList">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Delete list</h4>
+      </div>
+      <div class="modal-body">
+        Are you sure want to delete list <b>{{deletingList.title}}</b>?
+      </div>
+      <hr/>
+      <div class="modal-actions">
+        <button class="text-button pull-left" (click)="answerDelete(true)">Yes
+        </button>
+        <button class="text-button pull-right" (click)="answerDelete(false)">Cancel
+        </button>
+        <div class="clearfix"></div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

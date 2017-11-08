@@ -1,0 +1,27 @@
+<div class="modal-dialog modal-m">
+  <div class="modal-content">
+    <div class="modal-body">
+      <form [formGroup]="form" (ngSubmit)="saveTask()">
+        <div class="header-group">
+          <textarea class="header-input" name="title" formControlName="title" [ngClass]="{'is-empty': !form.value['title']}" placeholder="Task Name"></textarea>
+        </div>
+        <div class="form-group">
+          <sq-datetimepicker #datepicker [placeholder]="'Date'" [mode]="'input'" formControlName="date" [inputClass]="'shown-textarea'" name="date" [options]="dateOptions" [ngClass]="{'empty-group': !form.value['date']}" (dpChange)="changeDate()"></sq-datetimepicker>
+        </div>
+        <div class="form-group">
+          <textarea placeholder="Description" class="shown-textarea form-description" [ngClass]="{'is-empty': !form.value['description']}" formControlName="description" name="description" autoResize></textarea>
+        </div>
+        <div class="form-actions">
+          <button *ngIf="task" class="text-button pull-left" (click)="deleteTask()">Delete
+          </button>
+
+          <button class="text-button pull-right" (click)="hide()">Cancel
+          </button>
+          <button class="text-button pull-right save-button" type="submit" [disabled]="form.invalid">Save
+          </button>
+        </div>
+        <div class="clearfix"></div>
+      </form>
+    </div>
+  </div>
+</div>

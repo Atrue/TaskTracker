@@ -1,0 +1,47 @@
+[
+  {
+    "title": "To Do",
+    "data": [
+      {
+        "title": "First Task",
+        "description": "description",
+        "date": "2017-07-07"
+      },
+      {
+        "title": "Second Task",
+        "description": "",
+        "date": "2017-07-12"
+      },
+      {
+        "title": "Third Task",
+        "description": "Long text description. Long text description. Long text description. Long text description. Long text description.",
+        "date": "2017-07-15"
+      }
+    ]
+  },
+  {
+    "title": "In Progress",
+    "data": [
+      {
+        "title": "Bug fix",
+        "description": "",
+        "date": "2017-07-16"
+      },
+      {
+        "title": "Do anything",
+        "description": "Long text description. Long text description. Long text description. Long text description. Long text description. Long text description ",
+        "date": "2017-07-10"
+      }
+    ]
+  },
+  {
+    "title": "Done",
+    "data": [
+      {
+        "title": "Main feature",
+        "description": "Make the feature",
+        "date": "2017-07-18"
+      }
+    ]
+  }
+]
